@@ -1,0 +1,122 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Coffee recomender</title>
+    <link rel="stylesheet" href="{% static 'stylesheet.css' %}">
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="header-left">
+          <!-- <img class="logo" src="https://prog-8.com/images/html/advanced/main_logo.png"> -->
+        </div>
+        <div class="header-right">
+          <a href="/index" class="home">メインページ</a>
+        </div>
+        <div class="header-right">
+          <a href="#" class="analysis">解析</a>
+        </div>
+        <div class="header-right">
+          <a href="/registration/1" class="register">コーヒー登録</a>
+        </div>
+        <div class="header-right">
+          <a href="#" class="login">ログイン</a>
+        </div>
+      </div>
+    </header>
+    <div class="top-wrapper">
+      <div class="container">
+        <h1>Let's discover your favorite coffee. home page</h1>
+
+        <p>2つ目のWebアプリケーションです。</p>
+      </div>
+    </div>
+    <div class='input-form'>
+      <h2>入力欄</h2>
+      <p> Entry date :日付 ,Make：メーカー ,Coffee：コーヒー名,Evaluation：1~5</p>
+      <form action="{% url 'post' %}" method="post" autocomplete="off">
+      {% csrf_token %}
+      <table>{{form.as_table}}</table>
+      <input type="submit" value="click">
+      </form>
+    </div>
+
+
+    <div class="lesson-wrapper">
+      <div class="container">
+        <div class="heading">
+          <h2>Cofee column</h2>
+        </div>
+        <div class="lessons">
+          <div class="lesson">
+            <div class="lesson-icon">
+              <img src="{% static 'spesial.png' %}" >
+              <!-- <img src="/media/images/spesial.jpg"> -->
+            </div>
+            <p class="txt-contents">
+              最近よく聞くスペシャルコーヒーって？<br>
+              ざっくりいうと、どこで、どのように作られたかが明確で、かつ味わいに優れ、豊かな個性のあるコーヒーのこと
+            </p>
+          </div>
+          <div class="lesson">
+            <div class="lesson-icon">
+              <img src="{% static 'oishii_top_title_bg.png' %}" >
+              <!--<img src="/media/images/oishii_top_title_bg.jpg"> -->
+            </div>
+            <p class="txt-contents">
+              レギュラー？　ストレート？　<br>シングルオリジン？<br>
+              すべて異なる分類での呼び方です。　例えばレギュラーコーヒーは、コーヒーの生豆を精製し煎った豆、およびそれを引いた粉のことをさします。<br>
+            </p>
+          </div>
+          <div class="lesson">
+            <div class="lesson-icon">
+              <img src="{% static 'images.png' %}" >
+              <!--<img src="/media/images/images.jpg"> -->
+            </div>
+            <p class="txt-contents">
+              コーヒーの味を決める主要な要因は?<br>
+              1.生豆 → 品種や産地<br>
+              2.焙煎豆 → 焙煎度合い 焙煎の質<br>
+              3.粉 → 挽き方<br>
+              4.入れ方 → 抽出方法、濃さ、温度   
+            </p>
+          </div>
+          <div class="lesson">
+            <div class="lesson-icon">
+              <img src="{% static 'img20180609144833-1484516849-1280x720.png' %}" >
+              <!--<img src="/media/images/img20180609144833-1484516849-1280x720.jpg">-->
+            </div>
+            <p class="txt-contents">
+              国名・地名がブランド名になったものもあれば独自の名前をつけているものもある。<br>
+              「ブラジル」はブラジル国内でとれたコーヒー豆。一方、「モカ」はイエメンのモカ港から輸出された名残
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class='contact-form'>
+      <h3>お問い合わせ</h3>
+      <form action="{% url 'query' %}" method="post">
+      {% csrf_token %}
+      <p>メールアドレス（必須）</p>
+      {{queryform.mail}}
+
+      <p>お問い合わせ内容（必須）</p>
+      {{queryform.query}}
+
+      <p>※必須項目は必ずご入力ください</p>
+      <input type="submit" value="click">
+      </form>
+    </div>
+
+    <footer>
+      <div class="container">
+        <!-- <img src="https://prog-8.com/images/html/advanced/footer_logo.png">
+        <p>Learn to code, learn to be creative.</p>  -->
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,204 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Coffee recomender</title>
+    <link rel="stylesheet" href="{% static 'stylesheet_reg.css' %}">
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="header-left">
+          <!-- <img class="logo" src="https://prog-8.com/images/html/advanced/main_logo.png"> -->
+        </div>
+        <div class="header-right">
+          <a href="/index" class="home">メインページ</a>
+        </div>
+        <div class="header-right">
+          <a href="#" class="analysis">解析</a>
+        </div>
+        <div class="header-right">
+          <a href="/registration/1" class="register">コーヒー登録</a>
+        </div>
+        <div class="header-right">
+          <a href="#" class="login">ログイン</a>
+        </div>
+      </div>
+    </header>
+    <div class="top-wrapper">
+      <div class="container">
+        <h1>Let's discover your favorite coffee. registration page</h1>
+
+        <p>2つ目のWebアプリケーションです。</p>
+      </div>
+    </div>
+    <div class="input-form">
+      <h2>コーヒー登録フォーム</h2>
+      <form action="{% url 'post_registration' %}" method="post" autocomplete="off">
+      {% csrf_token %}
+      {{ form.name.label }}
+      {{ form.name }}
+      <br>
+
+      {{ form.company.label }}
+      {{ form.company }}
+      <br>
+      
+      {{ form.smell.label }}
+      {% for radiobutton in form.smell %}
+        {{ radiobutton }}
+      {% endfor %}
+      <br>
+
+      {{ form.acidity.label }}
+      {% for radiobutton in form.acidity %}
+        {{ radiobutton }}
+      {% endfor %}
+      <br>
+
+      {{ form.taste.label }}
+      {% for radiobutton in form.taste %}
+        {{ radiobutton }}
+      {% endfor %}
+      <br>
+
+      {{ form.bitter.label }}
+      {% for radiobutton in form.bitter %}
+        {{ radiobutton }}
+      {% endfor %}
+      <br>
+
+      {{ form.flavor.label }}
+      {% for radiobutton in form.flavor %}
+        {{ radiobutton }}
+      {% endfor %}
+      <br><br>
+
+      <input type="submit" value="click">
+      </form>
+    </div>
+
+    <div class="coffee-list">
+      <h2>登録済コーヒー</h2>
+      <table>
+        <tr>
+          <th>id</th>
+          <th>コーヒー</th>
+          <th>製作会社</th>
+          <th>香り</th>
+          <th>酸味</th>
+          <th>コク</th>
+          <th>苦味</th>
+          <th>風味</th>
+          <th></th>
+          <th></th>
+        </tr>
+        {% for item in data %}
+        <tr>
+          <td>{{item.id}}</td>
+          <td>{{item.name}}</td>
+          <td>{{item.company}}</td>
+          <td>{{item.smell}}</td>
+          <td>{{item.acidity}}</td>
+          <td>{{item.taste}}</td>
+          <td>{{item.bitter}}</td>
+          <td>{{item.flavor}}</td>
+          <td><a href="{% url 'edit' item.id %}">Edit</a></td>
+          <td><a href="{% url 'delete' item.id %}">Delete</a></td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+    <div class="pagination">
+      {% if data.has_previous %}
+        <a href="{% url 'registration' %}">&laquo;first</a>
+        <a href="{% url 'registration' %}"\
+          {{data.previous_page_number}}>&laquo;prev</a>
+      {% endif %}
+      <span class="current">
+        [{{data.number}}/{{data.paginator.num_pages}}]
+      </span>
+      {% if data.has_next %}
+        <a href="{% url 'registration' %}\
+          {{data.next_page_number}}">next&raquo;</a>
+        <a href="{% url 'registration' %}\
+          {{data.paginator.num_pages}}">last&raquo;</a>
+      {% endif %}
+    </div>
+
+    <div class="lesson-wrapper">
+      <div class="container">
+        <div class="heading">
+          <h2>Cofee column</h2>
+        </div>
+        <div class="lessons">
+          <div class="lesson">
+            <div class="lesson-icon">
+              <img src="{% static 'spesial.png' %}" >
+              <!-- <img src="/media/images/spesial.jpg"> -->
+            </div>
+            <p class="txt-contents">
+              最近よく聞くスペシャルコーヒーって？<br>
+              ざっくりいうと、どこで、どのように作られたかが明確で、かつ味わいに優れ、豊かな個性のあるコーヒーのこと
+            </p>
+          </div>
+          <div class="lesson">
+            <div class="lesson-icon">
+              <img src="{% static 'oishii_top_title_bg.png' %}" >
+              <!--<img src="/media/images/oishii_top_title_bg.jpg"> -->
+            </div>
+            <p class="txt-contents">
+              レギュラー？　ストレート？　<br>シングルオリジン？<br>
+              すべて異なる分類での呼び方です。　例えばレギュラーコーヒーは、コーヒーの生豆を精製し煎った豆、およびそれを引いた粉のことをさします。<br>
+            </p>
+          </div>
+          <div class="lesson">
+            <div class="lesson-icon">
+              <img src="{% static 'images.png' %}" >
+              <!--<img src="/media/images/images.jpg"> -->
+            </div>
+            <p class="txt-contents">
+              コーヒーの味を決める主要な要因は?<br>
+              1.生豆 → 品種や産地<br>
+              2.焙煎豆 → 焙煎度合い 焙煎の質<br>
+              3.粉 → 挽き方<br>
+              4.入れ方 → 抽出方法、濃さ、温度   
+            </p>
+          </div>
+          <div class="lesson">
+            <div class="lesson-icon">
+              <img src="{% static 'img20180609144833-1484516849-1280x720.png' %}" >
+              <!--<img src="/media/images/img20180609144833-1484516849-1280x720.jpg">-->
+            </div>
+            <p class="txt-contents">
+              国名・地名がブランド名になったものもあれば独自の名前をつけているものもある。<br>
+              「ブラジル」はブラジル国内でとれたコーヒー豆。一方、「モカ」はイエメンのモカ港から輸出された名残
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class='contact-form'>
+      <h3>お問い合わせ</h3>
+      <form action="{% url 'query' %}" method="post">
+      {% csrf_token %}
+      <p>メールアドレス（必須）</p>
+      {{queryform.mail}}
+
+      <p>お問い合わせ内容（必須）</p>
+      {{queryform.query}}
+
+      <p>※必須項目は必ずご入力ください</p>
+      <input type="submit" value="click">
+      </form>
+    </div>
+    <footer>
+      <div class="container">
+        <!-- <img src="https://prog-8.com/images/html/advanced/footer_logo.png">
+        <p>Learn to code, learn to be creative.</p>  -->
+      </div>
+    </footer>
+  </body>
+</html>
